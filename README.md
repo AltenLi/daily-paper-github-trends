@@ -17,10 +17,10 @@ https://altenli.github.io/daily-paper-github-trends/
 
 ## 最新文章
 
-- 2026-06-10｜🧑‍💻 [我在 GitHub 发现一个让 AI 写代码不容易失忆的工具：baoyu-design](./github-trending/2026-06-10_我在-GitHub-发现一个让-AI-写代码不容易失忆的工具-baoyu-design.md)
-- 2026-06-10｜🧑‍💻 [我在 GitHub 发现一个让 AI 写代码不容易失忆的工具：nihaisha-nishi-tcm](./github-trending/2026-06-10_我在-GitHub-发现一个让-AI-写代码不容易失忆的工具-nihaisha-nishi-tcm.md)
-- 2026-06-10｜🧑‍💻 [我在 GitHub 发现一个让 AI 写代码不容易失忆的工具：comet](./github-trending/2026-06-10_我在-GitHub-发现一个让-AI-写代码不容易失忆的工具-comet.md)
-- 2026-06-10｜🧑‍💻 [我在 GitHub 发现一个让 AI 写代码不容易失忆的工具：Adrian](./github-trending/2026-06-10_我在-GitHub-发现一个让-AI-写代码不容易失忆的工具-Adrian.md)
+- 2026-06-10｜🧑‍💻 [GitHub 上这个 Claude Design 本地版，让 AI 直接做网页原型：baoyu-design](./github-trending/2026-06-10_GitHub-上这个-Claude-Design-本地版-让-AI-直接做网页原型-baoyu-design.md)
+- 2026-06-10｜🧑‍💻 [倪海厦课程怎么做成 Agent Skill？这个 GitHub 项目把中医资料变成可检索知识库](./github-trending/2026-06-10_倪海厦课程怎么做成-Agent-Skill-这个-GitHub-项目把中医资料变成可检索知识库.md)
+- 2026-06-10｜🧑‍💻 [AI 写代码总跑偏？Comet 用五阶段工作流给 Agent 加护栏](./github-trending/2026-06-10_AI-写代码总跑偏-Comet-用五阶段工作流给-Agent-加护栏.md)
+- 2026-06-10｜🧑‍💻 [Agent 会乱调用工具怎么办？Adrian 在运行时拦截提示注入和越权动作](./github-trending/2026-06-10_Agent-会乱调用工具怎么办-Adrian-在运行时拦截提示注入和越权动作.md)
 - 2026-06-10｜📄 [Skill Retrieval Augmentation for Agentic AI：从论文到 AI 工程落地的读法](./papers/2026-06-10_Skill-Retrieval-Augmentation-for-Agentic-AI-从论文到-AI-工程落地的读法.md)
 - 2026-06-10｜📄 [GraphER: An Efficient Graph-Based Enrichment and Reranking Method for Retrieval-Augmented Generation：从论文到 AI 工程落地的读法](./papers/2026-06-10_GraphER-An-Efficient-Graph-Based-Enrichment-and-Reranking-Method-for-Ret.md)
 - 2026-06-10｜📄 [From Conflict to Consensus: Boosting Medical Reasoning via Multi-Round Agentic RAG：从论文到 AI 工程落地的读法](./papers/2026-06-10_From-Conflict-to-Consensus-Boosting-Medical-Reasoning-via-Multi-Round-Ag.md)
