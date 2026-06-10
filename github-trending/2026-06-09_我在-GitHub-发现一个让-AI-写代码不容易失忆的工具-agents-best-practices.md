@@ -4,8 +4,6 @@ date: "2026-06-09"
 category: "GitHub Trending 项目"
 source_path: "ai-wechat-writer/daily/2026-06-09/flows/github-trends/03/deep_read_article.md"
 source_url: "https://github.com/denissergeevitch/agents-best-practices"
-wechat_draft_media_id: "nZdFT5-hTNcVjqK8DAsxuar2FOP3A5m0J-ryzl3ZujRxJ-KF7whEaPjDihnDTVKF"
-content_hash: "8ca6aad741e37799b8303c1e3822e99d974dd4c7a1f9a990743baae528d21aaa"
 ---
 # GitHub 高星追踪：DenisSergeevitch/agents-best-practices 值不值得 AI 工程师看？
 

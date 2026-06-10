@@ -4,7 +4,6 @@ date: "2026-06-05"
 category: "GitHub Trending 项目"
 source_path: "ai-wechat-writer/daily/2026-06-05/flows/github-trends/02/deep_read_article.md"
 source_url: "https://github.com/yetone/native-feel-skill"
-content_hash: "f20363bebbe91f6fdb8eab085054ce59128c69871321c8d2bbc4307fb79b6626"
 ---
 # 我在 GitHub 发现一个让 AI 写代码不容易失忆的工具：native-feel-skill
 

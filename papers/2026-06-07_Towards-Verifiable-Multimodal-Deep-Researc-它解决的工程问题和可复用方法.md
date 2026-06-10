@@ -4,7 +4,6 @@ date: "2026-06-07"
 category: "论文精读"
 source_path: "ai-wechat-writer/daily/2026-06-07/flows/paper-deep-read/04/deep_read_article.md"
 source_url: "https://arxiv.org/abs/2605.29861"
-content_hash: "ace043a71c4e40dbce4dc92245b0c84a03e44c85451671b1857f3e9dfb6d0c39"
 ---
 # Towards Verifiable Multimodal Deep Researc：它解决的工程问题和可复用方法
 

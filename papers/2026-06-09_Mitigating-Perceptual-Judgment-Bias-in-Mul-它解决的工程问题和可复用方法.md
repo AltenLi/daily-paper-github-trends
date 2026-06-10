@@ -4,8 +4,6 @@ date: "2026-06-09"
 category: "论文精读"
 source_path: "ai-wechat-writer/daily/2026-06-09/flows/paper-deep-read/04/deep_read_article.md"
 source_url: "https://arxiv.org/abs/2606.02578v1"
-wechat_draft_media_id: "nZdFT5-hTNcVjqK8DAsxubrt-XQ3a02ghJR5x9w1zkDBgujqV00iG3jEZE0Hinvp"
-content_hash: "bfbd0a7bd80a126f43abac04e43032c3f415eba87ce5b88a96a83c91a94a6b5a"
 ---
 # Mitigating Perceptual Judgment Bias in Mul：它解决的工程问题和可复用方法
 

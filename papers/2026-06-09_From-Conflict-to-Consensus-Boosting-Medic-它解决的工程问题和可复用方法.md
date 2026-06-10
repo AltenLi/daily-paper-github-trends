@@ -4,8 +4,6 @@ date: "2026-06-09"
 category: "论文精读"
 source_path: "ai-wechat-writer/daily/2026-06-09/flows/paper-deep-read/03/deep_read_article.md"
 source_url: "https://arxiv.org/abs/2603.03292"
-wechat_draft_media_id: "nZdFT5-hTNcVjqK8DAsxuW-iNHLzc4ROhawKSjXHpOERw8YZzREqlnGPea0xHsf4"
-content_hash: "2a566bf0dac86b4d1759e8a70a53c6efab5c8890b2e7ed4f52c0fd2ee64a8339"
 ---
 # From Conflict to Consensus: Boosting Medic：它解决的工程问题和可复用方法
 

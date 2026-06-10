@@ -4,8 +4,6 @@ date: "2026-06-10"
 category: "GitHub Trending 项目"
 source_path: "ai-wechat-writer/daily/2026-06-10/flows/github-trends/03/deep_read_article.md"
 source_url: "https://github.com/rpamis/comet"
-wechat_draft_media_id: "nZdFT5-hTNcVjqK8DAsxuTBSXTD5e21x3Mx5fkurNY8SxMpkQY2baXBkD72bV1LO"
-content_hash: "232482e80ec46008035e32b6fe1324cf1fa083df55edeac19224985c2f466685"
 ---
 # AI 写代码总跑偏？Comet 用五阶段工作流给 Agent 加护栏
 

@@ -4,7 +4,6 @@ date: "2026-06-07"
 category: "论文精读"
 source_path: "ai-wechat-writer/daily/2026-06-07/flows/paper-deep-read/03/deep_read_article.md"
 source_url: "https://arxiv.org/abs/2606.03565"
-content_hash: "fd1398bcc47e2a2b1370d902fe9f0350a6e487c62365da349fc10e6f989a9174"
 ---
 # Skill Is Not Document: A Query-Conditional：它解决的工程问题和可复用方法
 

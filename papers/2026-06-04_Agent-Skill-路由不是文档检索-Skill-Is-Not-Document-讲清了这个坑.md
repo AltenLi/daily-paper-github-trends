@@ -4,7 +4,6 @@ date: "2026-06-04"
 category: "论文精读"
 source_path: "ai-wechat-writer/daily/2026-06-04/flows/paper-deep-read/manual-002-outline_paper_arxiv_2606.03565/deep_read_article.md"
 source_url: "https://arxiv.org/abs/2606.03565"
-content_hash: "6326d4a44906465c16b7bd12d06fcc6eaf41fb57a2996a653313882fa9e9c39e"
 ---
 # Agent Skill 路由不是文档检索：Skill Is Not Document 讲清了这个坑
 

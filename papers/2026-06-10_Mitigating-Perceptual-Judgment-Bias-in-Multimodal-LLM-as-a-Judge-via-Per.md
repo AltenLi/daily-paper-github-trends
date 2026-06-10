@@ -4,8 +4,6 @@ date: "2026-06-10"
 category: "论文精读"
 source_path: "ai-wechat-writer/daily/2026-06-10/flows/paper-deep-read/04/deep_read_article.md"
 source_url: "https://arxiv.org/abs/2606.02578v1"
-wechat_draft_media_id: "nZdFT5-hTNcVjqK8DAsxuWkkmCt5EEO9DquQXi_KcUJzdKnSY7xoB_sshzS0i7K7"
-content_hash: "5ffe96431f65396b9375e2623e5edbfa17b9b44b36dc24480a03c68112035385"
 ---
 # Mitigating Perceptual Judgment Bias in Multimodal LLM-as-a-Judge via Perceptual Perturbation and Reward Modeling：从论文到 AI 工程落地的读法
 

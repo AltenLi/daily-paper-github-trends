@@ -4,8 +4,6 @@ date: "2026-06-09"
 category: "GitHub Trending 项目"
 source_path: "ai-wechat-writer/daily/2026-06-09/flows/github-trends/04/deep_read_article.md"
 source_url: "https://github.com/jdevalk/specification.website"
-wechat_draft_media_id: "nZdFT5-hTNcVjqK8DAsxuUYGI66gx4U008D66qTbLJZ8CfvRCyPIlImU0QR1NIck"
-content_hash: "61f97fe66134b7f0a4d7c261c6c73d3c724d22652c0261d3f15333822b360bc5"
 ---
 # GitHub 高星追踪：jdevalk/specification.website 值不值得 AI 工程师看？
 

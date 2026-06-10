@@ -4,8 +4,6 @@ date: "2026-06-10"
 category: "论文精读"
 source_path: "ai-wechat-writer/daily/2026-06-10/flows/paper-deep-read/01/deep_read_article.md"
 source_url: "https://arxiv.org/abs/2604.24594"
-wechat_draft_media_id: "nZdFT5-hTNcVjqK8DAsxuZHQEHcOPZyElGw1OXp-AmocE6QUGjlrvC5j2cjxO3gy"
-content_hash: "28d6895336a13f453bcb919d5b7474989483aa1f8849e0672f203ded1347f0d9"
 ---
 # Skill Retrieval Augmentation for Agentic AI：从论文到 AI 工程落地的读法
 

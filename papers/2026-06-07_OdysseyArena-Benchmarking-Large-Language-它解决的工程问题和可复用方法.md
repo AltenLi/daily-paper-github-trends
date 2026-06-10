@@ -4,7 +4,6 @@ date: "2026-06-07"
 category: "论文精读"
 source_path: "ai-wechat-writer/daily/2026-06-07/flows/paper-deep-read/02/deep_read_article.md"
 source_url: "https://arxiv.org/abs/2602.05843"
-content_hash: "6251c4128fc658fe03c6df41a5c2c9c63b3e38b57059e777d27f620b4b0cd5b9"
 ---
 # OdysseyArena: Benchmarking Large Language ：它解决的工程问题和可复用方法
 

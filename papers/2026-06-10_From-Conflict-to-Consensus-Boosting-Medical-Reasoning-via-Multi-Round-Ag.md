@@ -4,8 +4,6 @@ date: "2026-06-10"
 category: "论文精读"
 source_path: "ai-wechat-writer/daily/2026-06-10/flows/paper-deep-read/03/deep_read_article.md"
 source_url: "https://arxiv.org/abs/2603.03292"
-wechat_draft_media_id: "nZdFT5-hTNcVjqK8DAsxuXgWcirwAOtlLfG5E_5CIRldM7SVcqct-M7sR5jErgf4"
-content_hash: "dd6f6480b19c18edfd69bf1083f75214348cd16fe69c44fca3282386b4527839"
 ---
 # From Conflict to Consensus: Boosting Medical Reasoning via Multi-Round Agentic RAG：从论文到 AI 工程落地的读法
 

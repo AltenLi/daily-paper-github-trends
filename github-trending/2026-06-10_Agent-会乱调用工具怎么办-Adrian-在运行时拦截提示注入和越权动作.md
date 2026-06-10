@@ -4,8 +4,6 @@ date: "2026-06-10"
 category: "GitHub Trending 项目"
 source_path: "ai-wechat-writer/daily/2026-06-10/flows/github-trends/04/deep_read_article.md"
 source_url: "https://github.com/secureagentics/adrian"
-wechat_draft_media_id: "nZdFT5-hTNcVjqK8DAsxuQaW6CCGnMQv_1nXM1nhbLUtu8wPEcSWQZb9cr6uGZQQ"
-content_hash: "ae910f65257d60edebc1c1378d68d1b7091577e4c22f9ce94a80d3201a40d8c2"
 ---
 # Agent 会乱调用工具怎么办？Adrian 在运行时拦截提示注入和越权动作
 

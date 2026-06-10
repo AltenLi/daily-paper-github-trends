@@ -4,8 +4,6 @@ date: "2026-06-09"
 category: "GitHub Trending 项目"
 source_path: "ai-wechat-writer/daily/2026-06-09/flows/github-trends/01/deep_read_article.md"
 source_url: "https://github.com/yetone/native-feel-skill"
-wechat_draft_media_id: "nZdFT5-hTNcVjqK8DAsxuU7nCDV3eVHlDf-vpCETaW5FQK0yGP1-URyJZwhuMsf-"
-content_hash: "d4b8757fcfaadcee1be3170ed9063b00615a449659db2500647ac461d191c6b7"
 ---
 # GitHub 高星追踪：yetone/native-feel-skill 值不值得 AI 工程师看？
 

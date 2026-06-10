@@ -4,7 +4,6 @@ date: "2026-06-04"
 category: "GitHub Trending 项目"
 source_path: "ai-wechat-writer/daily/2026-06-04/flows/github-trends/01/deep_read_article.md"
 source_url: "https://github.com/opensquilla/opensquilla"
-content_hash: "fda36c7a63d7a9c00f6441a73631d7c8501d1e0f203bb6d45a82b1aa4557fa8b"
 ---
 # GitHub 项目拆解：opensquilla/opensquilla，它解决的是不是 Agent 的真问题？
 

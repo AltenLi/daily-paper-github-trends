@@ -4,8 +4,6 @@ date: "2026-06-10"
 category: "GitHub Trending 项目"
 source_path: "ai-wechat-writer/daily/2026-06-10/flows/github-trends/02/deep_read_article.md"
 source_url: "https://github.com/juneyaooo/nihaisha-nishi-tcm"
-wechat_draft_media_id: "nZdFT5-hTNcVjqK8DAsxuU8KCWTeZjG73jQ_9L1VP3kh2bDCV9D60fH8NUhrcYJZ"
-content_hash: "6b6928a24f97f32044266a84337f23d5d32926f13af1f3b12faa997ba237db8b"
 ---
 # 倪海厦课程怎么做成 Agent Skill？这个 GitHub 项目把中医资料变成可检索知识库
 

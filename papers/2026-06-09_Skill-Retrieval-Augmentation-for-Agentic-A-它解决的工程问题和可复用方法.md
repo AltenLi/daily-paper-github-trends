@@ -4,8 +4,6 @@ date: "2026-06-09"
 category: "论文精读"
 source_path: "ai-wechat-writer/daily/2026-06-09/flows/paper-deep-read/01/deep_read_article.md"
 source_url: "https://arxiv.org/abs/2604.24594"
-wechat_draft_media_id: "nZdFT5-hTNcVjqK8DAsxuSmPOuPuOu_S5GBvfxPfRBYyybR6tcNkxy4f58tHrdDV"
-content_hash: "20fee8fddf16ab4e1aa51d150cac67335fad1af44a54d9e4406057d0ad079f5f"
 ---
 # Skill Retrieval Augmentation for Agentic A：它解决的工程问题和可复用方法
 

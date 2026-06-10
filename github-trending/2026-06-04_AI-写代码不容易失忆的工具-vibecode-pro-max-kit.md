@@ -4,7 +4,6 @@ date: "2026-06-04"
 category: "GitHub Trending 项目"
 source_path: "ai-wechat-writer/daily/2026-06-04/flows/github-trends/02/deep_read_article.md"
 source_url: "https://github.com/withkynam/vibecode-pro-max-kit"
-content_hash: "6ba7e31e7348a22d26666f782462b53d4ce713d57231fb53d8ea66f9c4684e5c"
 ---
 # AI 写代码不容易失忆的工具：vibecode-pro-max-kit
 

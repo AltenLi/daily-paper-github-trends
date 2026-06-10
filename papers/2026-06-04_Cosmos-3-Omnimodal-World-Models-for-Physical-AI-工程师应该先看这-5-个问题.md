@@ -4,7 +4,6 @@ date: "2026-06-04"
 category: "论文精读"
 source_path: "ai-wechat-writer/daily/2026-06-04/flows/paper-deep-read/01/deep_read_article.md"
 source_url: "https://arxiv.org/abs/2606.02800"
-content_hash: "6d5ca60989ce069399a6a30b625d96867aab32d29f431482dc3f2215d76885c4"
 ---
 # Cosmos 3: Omnimodal World Models for Physical AI：工程师应该先看这 5 个问题
 

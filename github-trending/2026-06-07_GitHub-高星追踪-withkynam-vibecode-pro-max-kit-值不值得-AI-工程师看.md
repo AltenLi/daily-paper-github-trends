@@ -4,7 +4,6 @@ date: "2026-06-07"
 category: "GitHub Trending 项目"
 source_path: "ai-wechat-writer/daily/2026-06-07/flows/github-trends/04/deep_read_article.md"
 source_url: "https://github.com/withkynam/vibecode-pro-max-kit"
-content_hash: "98b686ddee5100489cb45c63a64edfe6d57cf5ee8c1b9e7dcce306714c96a108"
 ---
 # G4｜GitHub 高星追踪：withkynam/vibecode-pro-max-kit 值不值得 AI 工程师看？
 

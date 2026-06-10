@@ -4,8 +4,6 @@ date: "2026-06-09"
 category: "论文精读"
 source_path: "ai-wechat-writer/daily/2026-06-09/flows/paper-deep-read/02/deep_read_article.md"
 source_url: "https://arxiv.org/abs/2603.24925"
-wechat_draft_media_id: "nZdFT5-hTNcVjqK8DAsxuWG2iKCoUq55LPAG_Hsyoz9L6yHBRc_TaI_pwkzKaGCt"
-content_hash: "9150e1971d00c2a702ed7110d6be122749f11391e46453990ed7ef32f2fa763a"
 ---
 # GraphER: An Efficient Graph-Based Enrichme：它解决的工程问题和可复用方法
 

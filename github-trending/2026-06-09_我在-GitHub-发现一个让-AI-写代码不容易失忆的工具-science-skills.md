@@ -4,8 +4,6 @@ date: "2026-06-09"
 category: "GitHub Trending 项目"
 source_path: "ai-wechat-writer/daily/2026-06-09/flows/github-trends/02/deep_read_article.md"
 source_url: "https://github.com/google-deepmind/science-skills"
-wechat_draft_media_id: "nZdFT5-hTNcVjqK8DAsxufTJa2FVK8om-TQrRIFT1Abb7FyA-1ouW_6S2Jy3WFxO"
-content_hash: "1948c6853d95f7daeee461736736fa088154f13d3f614c29a876f1de92eaf1c3"
 ---
 # GitHub 高星追踪：google-deepmind/science-skills 值不值得 AI 工程师看？
 

@@ -4,7 +4,6 @@ date: "2026-06-04"
 category: "论文精读"
 source_path: "ai-wechat-writer/daily/2026-06-04/flows/paper-deep-read/02/deep_read_article.md"
 source_url: "https://arxiv.org/abs/2606.03565"
-content_hash: "fadd62ceb6e91a03c7f48962b7cb357f5a6d9eb0f545f7ab997c6185419c49ec"
 ---
 # Skill Is Not Document: A Query-Conditional Benchmark and Two-Stage Retriever for LLM Agent Skill Routing：工程师应该先看这 5 个问题
 

@@ -4,8 +4,6 @@ date: "2026-06-10"
 category: "论文精读"
 source_path: "ai-wechat-writer/daily/2026-06-10/flows/paper-deep-read/02/deep_read_article.md"
 source_url: "https://arxiv.org/abs/2603.24925"
-wechat_draft_media_id: "nZdFT5-hTNcVjqK8DAsxuascOkmpEFJPwPvyzgj0hvCCpmcm9kPz0grCITvFKKDV"
-content_hash: "82e514ce2993fff660e1ba6423b8713befd420c39214c90170ba0fdf3db23868"
 ---
 # GraphER: An Efficient Graph-Based Enrichment and Reranking Method for Retrieval-Augmented Generation：从论文到 AI 工程落地的读法
 

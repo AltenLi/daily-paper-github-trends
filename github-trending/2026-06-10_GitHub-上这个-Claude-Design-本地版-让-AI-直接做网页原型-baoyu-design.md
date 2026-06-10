@@ -4,8 +4,6 @@ date: "2026-06-10"
 category: "GitHub Trending 项目"
 source_path: "ai-wechat-writer/daily/2026-06-10/flows/github-trends/01/deep_read_article.md"
 source_url: "https://github.com/jimliu/baoyu-design"
-wechat_draft_media_id: "nZdFT5-hTNcVjqK8DAsxuYc4IA7EADM4up-_TfqbpdtG_EDPVWpwnLY92n4Co-oB"
-content_hash: "b644a89386760ff7499b1f263541f0b3f7a2fbc681411b74eccbc71fddf0dcdc"
 ---
 # GitHub 上这个 Claude Design 本地版，让 AI 直接做网页原型：baoyu-design
 

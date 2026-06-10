@@ -4,7 +4,6 @@ date: "2026-06-03"
 category: "GitHub Trending 项目"
 source_path: "ai-wechat-writer/daily/2026-06-03/flows/github-trends/01/deep_read_article.md"
 source_url: "https://github.com/opensquilla/opensquilla"
-content_hash: "0ff95ef479d5d682ffce5d6f622d03d4c89107e1185a0be6f37137f32806c2a8"
 ---
 # GitHub 高星追踪：opensquilla/opensquilla 值不值得 AI 工程师看？
 

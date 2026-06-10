@@ -4,7 +4,6 @@ date: "2026-06-05"
 category: "论文精读"
 source_path: "ai-wechat-writer/daily/2026-06-05/flows/paper-deep-read/02/deep_read_article.md"
 source_url: "https://arxiv.org/abs/2602.05843"
-content_hash: "663b32beefceb5c72f8425562224103712d0537897143acc77fe0ff8a622bb82"
 ---
 # OdysseyArena: Benchmarking Large Language Models For Long-Horizon, Active and Inductive Interactions：它解决的工程问题和可复用方法
 

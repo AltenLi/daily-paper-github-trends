@@ -3,7 +3,6 @@ title: "3类 OpenClaw 任务别再交给大模型：省 token 的第一张清单
 date: "2026-06-04"
 category: "OpenClaw / AI Agent 手记"
 source_path: "ai-wechat-writer/daily/2026-06-04/flows/lobster-notes/manual-001-outline_lobster_lobster-11/deep_read_article.md"
-content_hash: "fafdd90990d189706db7b827d438cc4e34916bfb9b206429ad2ca7323ab55518"
 ---
 # 3类 OpenClaw 任务别再交给大模型：省 token 的第一张清单
 

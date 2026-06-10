@@ -3,7 +3,6 @@ title: "Docker 重启后服务全掉？给 OpenClaw 加一个本地 watchdog 的
 date: "2026-06-04"
 category: "OpenClaw / AI Agent 手记"
 source_path: "ai-wechat-writer/daily/2026-06-04/flows/lobster-notes/manual-002-outline_lobster_lobster-13/deep_read_article.md"
-content_hash: "2d4c8dbd39fd86d270bf8a9781c2643ba6a5d4dc8ea6fcb04aa23bafbd870a42"
 ---
 # Docker 重启后服务全掉？给 OpenClaw 加一个本地 watchdog 的 5步法
 
