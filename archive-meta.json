@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-06-10T02:34:23.668Z",
+  "repo": "AltenLi/daily-paper-github-trends",
+  "count": 53,
+  "skipped": [],
+  "categories": {
+    "paper": {
+      "dir": "papers",
+      "label": "论文精读",
+      "desc": "AI / CS 前沿论文中文精读，关注 RAG、搜索、Agent、评测与大模型工程化。"
+    },
+    "github": {
+      "dir": "github-trending",
+      "label": "GitHub Trending 项目",
+      "desc": "GitHub 热门 AI 工程项目拆解，关注真实代码、README、架构价值与落地边界。"
+    },
+    "lobster": {
+      "dir": "openclaw-notes",
+      "label": "OpenClaw / AI Agent 手记",
+      "desc": "OpenClaw、个人 AI Agent、自动化工作流、权限安全、成本与运维实践。"
+    },
+    "quant": {
+      "dir": "quant-sim",
+      "label": "量化模拟仓 / 证据库",
+      "desc": "AI 交易助手、模拟盘、证据库、新闻库与风控框架的公开方法论文章。"
+    }
+  }
+}

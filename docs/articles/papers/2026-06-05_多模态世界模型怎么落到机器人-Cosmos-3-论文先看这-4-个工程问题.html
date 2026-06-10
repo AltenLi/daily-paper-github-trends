@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>多模态世界模型怎么落到机器人？Cosmos 3 论文先看这 4 个工程问题</title>
+<link rel="stylesheet" href="/daily-paper-github-trends/assets/style.css" />
+</head>
+<body>
+<header class="top"><a href="/daily-paper-github-trends/">📚 AltenAI 日报归档</a><span>论文 · GitHub · OpenClaw · 量化模拟</span></header>
+<main><article class="article"><p><a href="/daily-paper-github-trends/">← 返回首页</a> · <a href="https://github.com/AltenLi/daily-paper-github-trends/blob/main/papers/2026-06-05_多模态世界模型怎么落到机器人-Cosmos-3-论文先看这-4-个工程问题.md">查看 Markdown</a></p><h1>多模态世界模型怎么落到机器人？Cosmos 3 论文先看这 4 个工程问题</h1>
+
+<p>如果只看标题，Cosmos 3 很容易被写成“英伟达又发了一个多模态大模型”。但这篇 116 页技术报告真正值得 AI 工程师看的，不是热闹的模型名，而是一个更具体的问题：</p>
+
+<p>**当机器人、自动驾驶、智能仓储这类 Physical AI 系统既要看懂世界，又要模拟未来，还要生成动作时，能不能不要再拼一堆彼此割裂的模型？**</p>
+
+<p>Cosmos 3 的答案是：把语言、图像、视频、音频和动作都放进一个 omnimodal world model 里，让同一个模型在不同输入输出配置下，既能做理解，也能做生成，还能做 world-action / policy 相关任务。</p>
+
+<p>这篇文章按 Alten观AI 的老规矩来读：先讲清概念，再拆方法，最后落到工程 checklist。不把论文结果外推成线上承诺，也不把 benchmark 排名写成“马上可商用”。</p>
+
+<h2>1. 先讲概念：world model 到底在解决什么</h2>
+
+<p>在 Physical AI 里，智能体不是只回答问题。它要感知真实世界、理解当前状态、预测未来变化，并决定下一步动作。</p>
+
+<p>论文在开头举了一个家用机器人清理餐桌的例子。传统做法可能要拼几类模型：</p>
+
+<p class="li">• VLM：识别餐具、理解指令、生成计划；</p>
+<p class="li">• VLA / WAM：把视觉和语言转成动作序列；</p>
+<p class="li">• forward dynamics / world model：模拟动作之后世界会怎样变化；</p>
+<p class="li">• 视频生成或仿真模块：补充未来状态或训练环境。</p>
+
+<p>问题是，这种拼接式架构很容易出现三个工程痛点。</p>
+
+<p>第一，**接口碎片化**。每个模型的输入输出格式不同，中间状态要不断转换，错误也会在转换中累积。</p>
+
+<p>第二，**能力割裂**。理解模型不一定知道动作后果，生成模型不一定保留可执行动作语义，动作模型也不一定会解释自己为什么这么做。</p>
+
+<p>第三，**训练数据和算力重复消耗**。感知、生成、动作各训一套，很多世界知识其实是重复学习的。</p>
+
+<p>Cosmos 3 的核心动机，就是把这些能力统一到一个可扩展的模型家族中。</p>
+
+<h2>2. 论文信息卡</h2>
+
+<p class="li">• 论文：Cosmos 3: Omnimodal World Models for Physical AI</p>
+<p class="li">• 机构：NVIDIA</p>
+<p class="li">• arXiv：2606.02800</p>
+<p class="li">• 版本：v1，arXiv 页面显示 2026-06-03；PDF 首页标注 2026-6-3</p>
+<p class="li">• 项目页：research.nvidia.com/labs/cosmos-lab/cosmos3</p>
+<p class="li">• 代码：github.com/nvidia/cosmos、github.com/nvidia/cosmos-framework</p>
+<p class="li">• 模型：Cosmos3-Super、Cosmos3-Nano、Cosmos3-Super-Text2Image、Cosmos3-Super-Image2Video、Cosmos3-Nano-Policy-DROID</p>
+<p class="li">• 数据集：SDG-PhyxSim、SDG-RobotSim、SDG-DriveSim、SDG-SynHuman、SDG-Warehouse</p>
+<p class="li">• 评测集：Cosmos-HUE</p>
+<p class="li">• 开放协议：论文称代码、模型、合成数据集和评测 benchmark 在 Linux Foundation OpenMDW-1.1 License 下开放</p>
+
+<p>这里有个小提醒：论文作者列表非常长，PDF 首页用 “NVIDIA” 作机构署名，并把 contributors 放到附录 G。公众号文章里不适合把几百位作者完整贴出来，读者也不会因此更理解方法。</p>
+
+<h2>3. Cosmos 3 想统一哪些能力</h2>
+
+<p>论文把 Cosmos 3 定义为 **omnimodal world model**。这里的 “omnimodal” 不只是多模态输入，而是多模态输入和多模态输出都要统一。</p>
+
+<p>它覆盖的模态包括：</p>
+
+<p class="li">• language：语言；</p>
+<p class="li">• image：图像；</p>
+<p class="li">• video：视频；</p>
+<p class="li">• audio：音频；</p>
+<p class="li">• action：动作。</p>
+
+<p>动作是这篇论文和普通多模态模型最不一样的地方。Cosmos 3 不只是“看图说话”或“文生图/图生视频”，而是把 action 当成核心模态，让模型可以学习环境状态如何随动作变化。</p>
+
+<p>论文称，在不同输入输出配置下，Cosmos 3 可以表现为：</p>
+
+<p class="li">• vision-language model：做多模态理解和推理；</p>
+<p class="li">• image / video generation model：做文生图、文生视频、图生视频；</p>
+<p class="li">• audio-visual generation model：生成音视频；</p>
+<p class="li">• policy / world-action model：预测动作或策略；</p>
+<p class="li">• forward dynamics model：模拟未来状态；</p>
+<p class="li">• inverse dynamics model：从状态变化反推动作。</p>
+
+<p>工程上，这句话的含义是：Cosmos 3 不是单点工具，而是在尝试做 Physical AI 的统一底座。</p>
+
+<h2>4. 方法拆解：不是一个“大 Transformer”这么简单</h2>
+
+<p>从工程视角看，Cosmos 3 至少有四层设计值得拆。</p>
+
+<h3>4.1 模态编码层：不同模态先进统一空间</h3>
+
+<p>论文把不同模态先转成 token，再送进统一 backbone。</p>
+
+<p>图像和视频有两套视觉编码路径：</p>
+
+<p class="li">• 理解任务使用预训练的 ViT encoder；</p>
+<p class="li">• 生成任务使用来自 Wan2.2-TI2V-5B 的 video VAE encoder。</p>
+
+<p>论文写到，VAE 在时间上压缩 4 倍，空间上压缩到 32 × 32 级别，并且训练时保持 frozen。</p>
+
+<p>音频生成使用 audio VAE，原始 stereo audio 采样率为 48 kHz，hop size 为 1920 samples，约等于每秒 25 个 audio tokens。这个 audio VAE 同样在训练中保持 frozen。</p>
+
+<p>动作模态则更复杂，因为机器人、自动驾驶、相机运动和第一视角人体运动的控制空间都不同。Cosmos 3 用相对姿态、effector pose、grasp state 等几何组件，把不同 embodiment 的动作映射到统一 action interface。</p>
+
+<p>这对工程团队的启发是：**统一模型不等于所有输入都硬塞成文本。模态前端仍然要尊重原始信号结构。**</p>
+
+<h3>4.2 action 表示层：把“动作”做成可学习 token</h3>
+
+<p>论文明确说，action 表示的是引起世界状态变化的 causal variables。</p>
+
+<p>在连续视频 token 中，一个 action token 可以表示从上一状态到当前状态的 transition。不同场景下动作的具体含义不同：</p>
+
+<p class="li">• 自动驾驶和相机：主要是 ego pose；</p>
+<p class="li">• 第一视角数据：包括头部相机姿态、手腕姿态、指尖位置；</p>
+<p class="li">• 机器人：包括 head-camera pose delta、end-effector flange-pose delta、gripper open/close。</p>
+
+<p>论文还强调，不直接建模 PID 等底层控制器细节，而是用 pseudo-actions 表示状态差分。</p>
+
+<p>这个选择很关键。它说明 Cosmos 3 的目标不是替代每个机器人的低层控制器，而是在更高层学习“世界如何因动作而变化”。</p>
+
+<h3>4.3 backbone 层：Mixture-of-Transformers</h3>
+
+<p>Cosmos 3 采用 Mixture-of-Transformers（MoT）架构。论文目录和正文显示，它包含 dual-tower layer structure、dual-stream joint attention、多模态位置编码等设计。</p>
+
+<p>可以把它理解成：模型既要处理语言 token 的自回归生成，又要处理图像/视频/音频这类更适合 denoising 的生成过程，还要让不同模态在同一个 backbone 中共享信息。</p>
+
+<p>论文写到，推理时 language tokens 通过 next-token prediction 生成，其他模态通过 iterative denoising 生成。</p>
+
+<p>这对工程师很有启发：统一架构不代表统一生成机制。不同模态仍然可能需要不同的输出头、生成过程和 serving 优化。</p>
+
+<h3>4.4 post-training 层：一个底座，多个专家</h3>
+
+<p>论文发布了 Cosmos3-Nano 和 Cosmos3-Super 两个主要模型变体。</p>
+
+<p class="li">• Cosmos3-Nano 适配 Qwen3-VL 8B 架构；</p>
+<p class="li">• Cosmos3-Super 适配 Qwen3-VL 32B 架构；</p>
+<p class="li">• 论文还提到 Cosmos3-Edge 会在后续 release 中包含。</p>
+
+<p>在基础模型之上，论文又 post-train 出几个 specialized variants：</p>
+
+<p class="li">• Cosmos3-Super-Text2Image；</p>
+<p class="li">• Cosmos3-Super-Image2Video；</p>
+<p class="li">• Cosmos3-Nano-Policy-DROID。</p>
+
+<p>这对应一个很实用的工程模式：先训一个跨模态底座，再用目标数据把它适配到图像生成、视频生成或机器人 policy 任务。</p>
+
+<h2>5. 数据和训练：这篇论文不是只靠模型结构</h2>
+
+<p>Cosmos 3 的训练分为 Reasoner 和 Generator 两条线。</p>
+
+<p>Reasoner 数据 curriculum 约 24.2M samples，其中：</p>
+
+<p class="li">• pre-training：约 22.0M samples；</p>
+<p class="li">• supervised fine-tuning：约 2.2M samples。</p>
+
+<p>论文表 3 写到，pre-training 中包括：</p>
+
+<p class="li">• image-text：18,814,952；</p>
+<p class="li">• video-text：1,016,299；</p>
+<p class="li">• text only：2,170,762；</p>
+<p class="li">• total：22,002,013。</p>
+
+<p>SFT 中包括：</p>
+
+<p class="li">• image-text：1,051,513；</p>
+<p class="li">• video-text：1,079,200；</p>
+<p class="li">• text only：40,960；</p>
+<p class="li">• total：2,171,673。</p>
+
+<p>论文还专门讲了数据清洗：</p>
+
+<p class="li">• semantic deduplication：用 embedding + clustering 去掉近重复样本；</p>
+<p class="li">• AI-judge quality filtering：用 Gemma-4-31B-it 作为 vision-language judge，从 Faithfulness、Completeness、Correctness 三个维度打分；</p>
+<p class="li">• threshold-based construction：样本必须同时满足三个维度阈值，而不是取平均分。</p>
+
+<p>这里特别值得 RAG/搜索工程师注意。论文虽然讲的是 Physical AI，但它的数据治理思路和搜索质量治理很像：</p>
+
+<p class="li">• 不能只去重文本，要结合视觉和任务语义去重；</p>
+<p class="li">• 不能只看平均质量，要防止某个维度严重失败；</p>
+<p class="li">• Faithfulness 是关键，因为视觉监督里“看起来合理但没证据”的回答会教模型幻觉。</p>
+
+<h2>6. 结果怎么看：哪些数字可以引用，哪些不能外推</h2>
+
+<p>论文总览表给出了一组跨任务结果。几个可以核验的点包括：</p>
+
+<p class="li">• Cosmos3-Super 在 General、Robotics、Smart infrastructure、Driving 四类 reasoning 汇总分上分别为 73.7、57.8、62.6、79.3；</p>
+<p class="li">• Cosmos3-Nano 对应为 69.6、55.1、61.0、76.0；</p>
+<p class="li">• Cosmos3-Super-Text2Image 在 UniGenBench All 上为 91.36；</p>
+<p class="li">• Cosmos3-Super / Nano 在 PAIBench-G、RBench、Physics-IQ、Cosmos-HUE 等视频/物理相关 benchmark 上也有详细评测；</p>
+<p class="li">• 论文称 Cosmos3-Super-Text2Image 在 Artificial Analysis Text-to-Image Leaderboard 上 ranked #1 among open-weight models、#4 among all models，日期为 2026-05-28；</p>
+<p class="li">• 论文称 Cosmos3-Super-Image2Video 在 Artificial Analysis Image-to-Video leaderboard 上 ranked top-1 among open-weight models；</p>
+<p class="li">• 论文称 Cosmos3-Nano-Policy-DROID 在 RoboLab 和 RoboArena 上排名第一。</p>
+
+<p>但这些结果不能被简单解读成“Cosmos 3 已经解决机器人”。原因有三点。</p>
+
+<p>第一，benchmark 覆盖的是一组定义好的任务，不等于真实机器人长期在线表现。</p>
+
+<p>第二，很多生成评测仍依赖 MLLM-as-judge、人评或平台 leaderboard，它们能说明模型在这些协议下表现强，但不能替代业务自己的离线集和线上回放。</p>
+
+<p>第三，Physical AI 的落地还涉及硬件、控制器、安全策略、实时性、失败回退和责任边界。论文模型强，不代表工程系统自动安全。</p>
+
+<h2>7. 对 RAG / 搜索 / Agent 工程有什么启发</h2>
+
+<p>这篇论文不是 RAG 论文，但里面有几条方法对搜索和 Agent 工程很有用。</p>
+
+<h3>启发 1：统一底座前，先统一 token 和状态表示</h3>
+
+<p>很多 Agent 系统的问题不是模型不够强，而是工具输出、记忆、网页、用户指令、历史动作都没有统一状态表示。</p>
+
+<p>Cosmos 3 的 action token 思路提醒我们：如果希望 Agent 真正学会“行动后果”，就不能只记录最终答案，还要记录状态变化和动作轨迹。</p>
+
+<h3>启发 2：不要把评测当成一个总分</h3>
+
+<p>论文把 Reasoner 分成 general、robotics、smart infrastructure、driving，把 Generator 分成 image、video、audio、transfer、action、policy 等任务。</p>
+
+<p>这对 RAG 系统同样成立。一个总分没意义，要拆成召回、重排、事实一致性、引用质量、工具调用成功率、失败回退率。</p>
+
+<h3>启发 3：数据治理比 prompt 更底层</h3>
+
+<p>论文花大量篇幅讲 semantic dedup、AI judge、Faithfulness、Completeness、Correctness。对公众号读者来说，这比模型名更值得学。</p>
+
+<p>如果你的知识库里重复、过期、低质、互相矛盾的资料很多，再好的 prompt 也只是把噪声包装得更像答案。</p>
+
+<h3>启发 4：post-training 是工程落地的主路径</h3>
+
+<p>Cosmos 3 的底座模型通过 post-training 适配到 T2I、I2V、Policy-DROID。这个模式也适合企业 AI 应用：不要幻想一个通用模型直接解决全部任务，而是用真实失败样本和领域数据做持续适配。</p>
+
+<h2>8. 工程 checklist：读完可以怎么用</h2>
+
+<p>如果你做的是 RAG / 搜索 / Agent / API 接入，可以拿这 9 个问题检查自己的系统：</p>
+
+<p class="li">• 你的系统有没有统一记录“输入、动作、状态变化、输出”？</p>
+<p class="li">• 工具调用结果是否只是文本，还是有结构化状态？</p>
+<p class="li">• 离线评测是否拆分到具体能力，而不是只有一个总分？</p>
+<p class="li">• 数据去重是否考虑语义和任务意图，而不是只看字符串重复？</p>
+<p class="li">• 是否有 faithfulness 检查，避免无证据回答进入训练或知识库？</p>
+<p class="li">• 是否把 high-level planning 和 low-level execution 分开？</p>
+<p class="li">• 是否允许旁路试用，而不是直接替换主链路？</p>
+<p class="li">• 失败样本是否能回放？</p>
+<p class="li">• 外部动作是否保留人工确认和回退？</p>
+
+<h2>9. FAQ</h2>
+
+<p>**Q1：Cosmos 3 是不是一个普通多模态大模型？**</p>
+
+<p>不是。普通多模态模型重点常在“理解图文/视频”，Cosmos 3 试图把理解、生成、动作和世界模拟统一起来。动作模态是它最值得注意的部分。</p>
+
+<p>**Q2：它和视频生成模型有什么区别？**</p>
+
+<p>视频生成只是它覆盖的一种能力。论文更大的目标是让同一个底座支持视觉理解、图像/视频/音频生成、forward dynamics、policy / world-action 等任务。</p>
+
+<p>**Q3：它是不是可以直接拿来控制真实机器人？**</p>
+
+<p>不能这么理解。论文展示了 policy 相关 post-training 和 benchmark 结果，但真实机器人落地还需要硬件接口、控制器、安全约束、实时性和大量场景验证。</p>
+
+<p>**Q4：对做搜索/RAG的人有什么价值？**</p>
+
+<p>最大价值不是直接使用 Cosmos 3，而是学习它的数据治理、评测拆分、状态表示和 post-training 思路。这些都能迁移到 RAG、Agent 和工具调用系统。</p>
+
+<h2>10. 我的判断</h2>
+
+<p>Cosmos 3 这篇论文值得写，但不要把它写成“英伟达大招来了”。它更适合被当成一个工程样板：</p>
+
+<p class="li">• 怎样统一多模态输入输出；</p>
+<p class="li">• 怎样把动作建模进世界模型；</p>
+<p class="li">• 怎样用数据治理减少幻觉；</p>
+<p class="li">• 怎样通过 benchmark 分层观察能力；</p>
+<p class="li">• 怎样用 post-training 把底座适配到具体任务。</p>
+
+<p>如果你只做文本 RAG，Cosmos 3 可能离你的生产系统有点远。但如果你关心 Agent 如何从“会回答”走向“会行动、会模拟、会复盘”，这篇论文很值得认真读。</p>
+
+<p>最后留一个问题：你现在的 Agent 系统里，是否记录了“动作导致了什么状态变化”？如果没有，它可能还只是聊天助手，不是真正的 world-aware agent。</p>
+
+
+<p>---</p>
+
+<blockquote>本文同步自微信公众号「AltenAI观察」的公开归档。完整每日推送与后续精读欢迎搜索关注。</blockquote>
+</article></main>
+<footer>⭐ 如果这个仓库对你有帮助，欢迎 Star！关注微信公众号「AltenAI观察」获取每日完整日报。</footer>
+<script src="/daily-paper-github-trends/assets/app.js"></script>
+</body>
+</html>

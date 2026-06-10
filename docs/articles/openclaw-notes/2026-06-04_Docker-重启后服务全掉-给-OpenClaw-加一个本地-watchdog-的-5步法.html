@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Docker 重启后服务全掉？给 OpenClaw 加一个本地 watchdog 的 5步法</title>
+<link rel="stylesheet" href="/daily-paper-github-trends/assets/style.css" />
+</head>
+<body>
+<header class="top"><a href="/daily-paper-github-trends/">📚 AltenAI 日报归档</a><span>论文 · GitHub · OpenClaw · 量化模拟</span></header>
+<main><article class="article"><p><a href="/daily-paper-github-trends/">← 返回首页</a> · <a href="https://github.com/AltenLi/daily-paper-github-trends/blob/main/openclaw-notes/2026-06-04_Docker-重启后服务全掉-给-OpenClaw-加一个本地-watchdog-的-5步法.md">查看 Markdown</a></p><h1>Docker 重启后服务全掉？给 OpenClaw 加一个本地 watchdog 的 5步法</h1>
+
+<p>如果你把 OpenClaw 跑在 Docker、服务器或家里的小主机上，迟早会遇到一个很烦的问题：机器重启了，Docker 起来了，但几个关键服务没跟着恢复。</p>
+
+<p>浏览器没起来、noVNC 掉了、某个本地 API 没监听、定时任务还在但依赖服务不在。表面上看 Agent 还在线，真正要干活时才发现链路断了。</p>
+
+<p>这篇不讲玄学 prompt，只讲一个很实用的工程动作：**给 OpenClaw 周边服务加一个本地 watchdog，让它定期检查关键端口和进程，发现掉线就拉起，并把结果写日志。**</p>
+
+<h2>1. 先分清：Docker restart 和服务可用不是一回事</h2>
+
+<p>很多人以为容器设置了 `restart: always` 就万事大吉。</p>
+
+<p>但真实情况通常更复杂：</p>
+
+<p class="li">• 容器进程活着，不代表内部服务已经监听端口；</p>
+<p class="li">• 浏览器进程活着，不代表 CDP 端口可连接；</p>
+<p class="li">• noVNC 页面能打开，不代表后面的 VNC 会话还在；</p>
+<p class="li">• cron 还在跑，不代表它调用的脚本依赖都正常；</p>
+<p class="li">• Agent 在线，不代表它需要的本地工具链在线。</p>
+
+<p>所以 watchdog 要检查的不是“进程名在不在”，而是**这个服务是否真的可用**。</p>
+
+<p>最小原则：</p>
+
+<blockquote>只监控关键依赖；只做可恢复动作；所有动作留日志；不可逆动作不自动做。</blockquote>
+
+<h2>2. 第一步：列出 OpenClaw 依赖的关键服务</h2>
+
+<p>不要一上来写脚本。先列清单。</p>
+
+<p>以一个常见个人 OpenClaw 环境为例，可能包括：</p>
+
+<p class="li">• OpenClaw gateway / 主服务；</p>
+<p class="li">• Docker 容器本身；</p>
+<p class="li">• noVNC 页面；</p>
+<p class="li">• x11vnc / VNC 后端；</p>
+<p class="li">• Chromium / browser profile；</p>
+<p class="li">• Chrome DevTools Protocol 端口；</p>
+<p class="li">• 本地草稿管理站点；</p>
+<p class="li">• 定时任务依赖的本地脚本或 API；</p>
+<p class="li">• 日志目录和工作目录权限。</p>
+
+<p>每个服务写三列就够：</p>
+
+<p class="li">• 检查方式：端口、HTTP、进程、文件、命令；</p>
+<p class="li">• 恢复方式：systemctl、docker compose、启动脚本、跳过；</p>
+<p class="li">• 风险等级：只读恢复、可能影响会话、需要人工确认。</p>
+
+<p>这里的重点是：**watchdog 不能变成另一个失控的 Agent。** 它只负责基础设施保活，不负责发布、删除、交易、发消息这类外部动作。</p>
+
+<h2>3. 第二步：用端口/HTTP 检查代替“看进程”</h2>
+
+<p>进程检查容易误判。比如 Chromium 进程还在，但 CDP 端口已经不可用；Node 进程还在，但 HTTP 路由卡死。</p>
+
+<p>更稳的检查方式是：</p>
+
+<p class="li">• HTTP 服务：请求健康检查页或首页，要求 2xx/3xx；</p>
+<p class="li">• TCP 服务：检查端口是否能连接；</p>
+<p class="li">• 浏览器 CDP：请求 `/json/version`；</p>
+<p class="li">• 文件服务：检查关键目录是否存在且可写；</p>
+<p class="li">• cron 输出：检查最近一次运行日志是否在合理时间内更新。</p>
+
+<p>示例思路：HTTP 服务用 3 秒超时请求健康页；TCP 服务只测试本地端口能否连接；浏览器 CDP 请求 `/json/version`；文件目录则检查是否存在且可写。</p>
+
+<p>这里不要追求复杂，先让检查稳定、快速、不会卡死。</p>
+
+<h2>4. 第三步：恢复动作要小，不要一上来重启整套系统</h2>
+
+<p>watchdog 最危险的写法，是一发现异常就 `docker restart all` 或重启整机。</p>
+
+<p>更好的策略是分层恢复：</p>
+
+<p>第一层，轻恢复。</p>
+
+<p>比如端口没开，就尝试启动对应脚本；日志目录不存在，就创建目录；临时进程掉了，就只拉起这个进程。</p>
+
+<p>第二层，服务级恢复。</p>
+
+<p>如果轻恢复失败，再重启单个 systemd service 或单个 compose service。</p>
+
+<p>第三层，人工升级。</p>
+
+<p>如果连续失败 3 次，不要继续无限重启。写入日志，发送提醒，等待人工确认。</p>
+
+<p>推荐规则：</p>
+
+<p class="li">• 同一个服务 10 分钟内最多恢复 1 次；</p>
+<p class="li">• 连续失败超过 3 次进入 blocked；</p>
+<p class="li">• blocked 状态只提醒，不再自动重启；</p>
+<p class="li">• 每次恢复都记录原因、命令、退出码和时间。</p>
+
+<p>这能避免 watchdog 自己制造雪崩。</p>
+
+<h2>5. 第四步：用 cron 或 systemd timer 定时跑</h2>
+
+<p>最小版本可以用 cron：</p>
+
+<p>例如每 5 分钟跑一次 watchdog 脚本，并把标准输出和错误输出都追加到日志文件。</p>
+
+<p>更稳的版本可以用 systemd timer，好处是日志、权限、失败状态更清晰。</p>
+
+<p>但不管用哪种，都要做到三件事：</p>
+
+<p class="li">• 脚本必须幂等：重复运行不会越修越坏；</p>
+<p class="li">• 每个检查有 timeout：不能卡住下一轮；</p>
+<p class="li">• 日志可读：未来能看懂它为什么重启了服务。</p>
+
+<p>日志建议包含四类字段：时间、服务名、检查结果、恢复动作和退出状态。比如“00:15 noVNC 检查失败，执行单服务恢复，退出码为 0；00:20 再次检查恢复正常”。</p>
+
+<p>这比“服务挂了我重启了一下”有用得多。</p>
+
+<h2>6. 第五步：把安全边界写死</h2>
+
+<p>OpenClaw 这类个人 Agent 往往能接触聊天、文件、浏览器、公众号、股票信息、定时任务。watchdog 只应该处理本地基础设施，不应该碰业务动作。</p>
+
+<p>明确禁止自动执行：</p>
+
+<p class="li">• 删除远端草稿；</p>
+<p class="li">• 正式发布公众号；</p>
+<p class="li">• 发邮件/发群消息；</p>
+<p class="li">• 改配置并重启核心服务；</p>
+<p class="li">• 真实交易、转账、外部联系；</p>
+<p class="li">• 清空日志或删除数据。</p>
+
+<p>这些动作即使可以被脚本完成，也应该进入人工确认。</p>
+
+<p>watchdog 的边界可以写成一句话：</p>
+
+<blockquote>它只能让本地服务回到“可用”，不能替人做“决策”。</blockquote>
+
+<h2>7. 一个最小 watchdog 应该长什么样</h2>
+
+<p>最小 watchdog 不一定要贴很长的脚本，关键是流程清楚：</p>
+
+<p>第一，准备一个日志文件和一个状态目录。日志记录每次检查结果，状态目录记录每个服务上次恢复时间。</p>
+
+<p>第二，为每个服务写一个检查函数。HTTP 服务检查健康页，浏览器检查 CDP 版本接口，端口服务检查本地连接，目录检查可读可写。</p>
+
+<p>第三，恢复前先看冷却时间。如果 10 分钟内已经恢复过同一服务，就不要重复拉起，避免无限重启。</p>
+
+<p>第四，恢复动作只针对单个服务。例如浏览器 CDP 掉了，只重启浏览器/noVNC 链路，不要重启整个 Docker 或整台机器。</p>
+
+<p>第五，恢复后下一轮再检查，不要在同一次脚本里无限循环等待。watchdog 应该短、快、可退出。</p>
+
+<p>这个模板的重点不是某一行命令，而是三个约束：检查有 timeout，恢复有冷却，所有动作进日志。</p>
+
+<h2>8. 常见坑</h2>
+
+<p>第一，watchdog 没有冷却时间。</p>
+
+<p>服务启动需要时间，如果每 5 分钟重复拉起，可能越拉越乱。</p>
+
+<p>第二，检查写得太重。</p>
+
+<p>每次都打开浏览器、跑大模型、访问外网，这不叫 watchdog，叫压力测试。</p>
+
+<p>第三，恢复动作太大。</p>
+
+<p>一个 CDP 端口失败，不应该直接重启所有容器。</p>
+
+<p>第四，日志不可读。</p>
+
+<p>没有时间、服务名、动作、退出码，未来就无法复盘。</p>
+
+<p>第五，把业务动作塞进 watchdog。</p>
+
+<p>基础设施保活和业务自动化必须分开。watchdog 负责“机器醒着”，不负责“替你做决定”。</p>
+
+<h2>9. 最后总结</h2>
+
+<p>OpenClaw 真正长期可用，不靠“模型更聪明”，而靠一层层朴素的工程保护：服务检查、失败恢复、日志、冷却、人工确认。</p>
+
+<p>如果你现在还没有 watchdog，可以先从一个最小目标开始：</p>
+
+<p class="li">• 每 5 分钟检查 2-3 个关键本地端口；</p>
+<p class="li">• 掉了只恢复对应服务；</p>
+<p class="li">• 连续失败就提醒人工；</p>
+<p class="li">• 所有恢复动作写日志。</p>
+
+<p>做到这一步，你的 Agent 就已经从“能跑一次”往“能长期值班”迈了一步。</p>
+
+
+<p>---</p>
+
+<blockquote>本文同步自微信公众号「AltenAI观察」的公开归档。完整每日推送与后续精读欢迎搜索关注。</blockquote>
+</article></main>
+<footer>⭐ 如果这个仓库对你有帮助，欢迎 Star！关注微信公众号「AltenAI观察」获取每日完整日报。</footer>
+<script src="/daily-paper-github-trends/assets/app.js"></script>
+</body>
+</html>
